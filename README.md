@@ -3,7 +3,9 @@
     src="logo.png"
     width="240" height="78" border="0" alt="GJSON">
 <br>
-<a href="https://travis-ci.org/fifsky/goconf"><img src="https://img.shields.io/travis/fifsky/goconf.svg?style=flat-square" alt="Build Status"></a>
+<a href="https://travis-ci.org/fifsky/goconf"><img src="https://travis-ci.org/fifsky/goconf.svg" alt="Build Status"></a>
+<a href="https://codecov.io/gh/fifsky/goconf"><img src="https://codecov.io/gh/fifsky/goconf/branch/master/graph/badge.svg" alt="codecov"></a>
+<a href="https://godoc.org/github.com/fifsky/goconf"><img src="https://godoc.org/github.com/gin-gonic/gin?status.svg" alt="GoDoc"></a>
 <a href="https://github.com/fifsky/goconf" rel="nofollow"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
 </p>
 
