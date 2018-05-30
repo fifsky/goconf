@@ -50,10 +50,10 @@ package main
 import "github.com/fifsky/goconf"
 
 func main() {
-	conf, _ := goconf.NewConfig("./testdata/")
+    conf, _ := goconf.NewConfig("./testdata/")
     ret, _ := conf.Get("dev.name.last")
 
-	println(ret.String())
+    println(ret.String())
 }
 ```
 
@@ -71,8 +71,8 @@ package main
 import "github.com/fifsky/goconf"
 
 func main() {
-	conf, _ := goconf.NewConfig("./testdata/")
-	println(conf.MustGet("dev.name.last").String())
+    conf, _ := goconf.NewConfig("./testdata/")
+    println(conf.MustGet("dev.name.last").String())
 }
 ```
 
