@@ -85,7 +85,7 @@ func main() {
 For more Path Syntax, see the [GJSON document](https://github.com/tidwall/gjson/blob/master/README.md#path-syntax)
 
 ## Default value
-If you use the Must function to access a non-existent configuration file or keys, GoConf returns zore value, which is consistent with gjson.result
+If you use the Must function to access a non-existent configuration file or keys, GoConf returns zero value, which is consistent with gjson.result
 
 ```go
 conf.MustGet("dev.notfound").String() //value is empty string
