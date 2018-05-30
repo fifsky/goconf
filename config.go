@@ -10,11 +10,14 @@ import (
 	"github.com/tidwall/gjson"
 )
 
+//config file path and ext,Ext default .json
 type Config struct {
 	Path string
 	Ext  string
 }
 
+//if key does not exist, return error
+//key: dev.user.name  dev is filename in config path
 func (c *Config) Get(key string) (*gjson.Result, error) {
 	keys := strings.Split(key, ".")
 
@@ -38,6 +41,7 @@ func (c *Config) Get(key string) (*gjson.Result, error) {
 	return &ret, nil
 }
 
+//Ignore the error and return a zero value when it does not exist
 func (c *Config) MustGet(key string) *gjson.Result {
 	ret, err := c.Get(key)
 	if err != nil {
