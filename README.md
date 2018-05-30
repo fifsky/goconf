@@ -7,7 +7,7 @@
 <a href="https://github.com/fifsky/goconf" rel="nofollow"><img src="https://camo.githubusercontent.com/c119511be2f77b84fe0d0df8621f32971c239d70/68747470733a2f2f706f7365722e707567782e6f72672f766572792f6672616d65776f726b2f6c6963656e73652e737667" alt="License" data-canonical-src="https://poser.pugx.org/very/framework/license.svg" style="max-width:100%;"></a>
 </p>
 
-<p align="center">Gjson-based configuration file</a></p>
+<p align="center">Gjson-based configuration file for golang</a></p>
 
 GoConf is a Go package that quickly retrieves JSON configuration files based on [GJSON](https://github.com/tidwall/gjson/)
 
