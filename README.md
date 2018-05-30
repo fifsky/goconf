@@ -4,7 +4,7 @@
     width="240" height="78" border="0" alt="GJSON">
 <br>
 <a href="https://travis-ci.org/fifsky/goconf"><img src="https://img.shields.io/travis/fifsky/goconf.svg?style=flat-square" alt="Build Status"></a>
-<a href="https://github.com/fifsky/goconf" rel="nofollow"><img src="https://camo.githubusercontent.com/c119511be2f77b84fe0d0df8621f32971c239d70/68747470733a2f2f706f7365722e707567782e6f72672f766572792f6672616d65776f726b2f6c6963656e73652e737667" alt="License" data-canonical-src="https://poser.pugx.org/very/framework/license.svg" style="max-width:100%;"></a>
+<a href="https://github.com/fifsky/goconf" rel="nofollow"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
 </p>
 
 <p align="center">Gjson-based configuration file for golang</a></p>
