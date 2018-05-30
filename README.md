@@ -6,7 +6,7 @@
 <a href="https://travis-ci.org/fifsky/goconf"><img src="https://travis-ci.org/fifsky/goconf.svg" alt="Build Status"></a>
 <a href="https://codecov.io/gh/fifsky/goconf"><img src="https://codecov.io/gh/fifsky/goconf/branch/master/graph/badge.svg" alt="codecov"></a>
 <a href="https://godoc.org/github.com/fifsky/goconf"><img src="https://godoc.org/github.com/gin-gonic/gin?status.svg" alt="GoDoc"></a>
-<a href="https://github.com/fifsky/goconf" rel="nofollow"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
+<a href="https://opensource.org/licenses/mit-license.php" rel="nofollow"><img src="https://badges.frapsoft.com/os/mit/mit.svg?v=103"></a>
 </p>
 
 <p align="center">Gjson-based configuration file for golang</a></p>
