@@ -97,3 +97,26 @@ func TestConfig_MustGet(t *testing.T) {
 		t.Errorf("must get key %s must return 0", "dev2.notfound2")
 	}
 }
+
+func TestConfig_Cache(t *testing.T) {
+	conf, err := NewConfig("./testdata/")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	name := conf.MustGet("dev.name.first").String()
+
+	if conf.file == "" {
+		t.Fatalf("config file empty")
+	}
+
+	if !conf.cache[conf.file].IsObject() {
+		t.Fatalf("config cache miss")
+	}
+
+	cacheName := conf.cache[conf.file].Get("name.first").String()
+
+	if name != "" && name != cacheName {
+		t.Fatalf("cache value not match [%s:%s]", name, cacheName)
+	}
+}

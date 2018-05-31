@@ -15,6 +15,7 @@ type Config struct {
 	Path  string
 	Ext   string
 	cache map[string]gjson.Result
+	file  string
 }
 
 //if key does not exist, return error
@@ -26,22 +27,22 @@ func (c *Config) Get(key string) (*gjson.Result, error) {
 		return nil, errors.New("config XPath is at least two paragraphs")
 	}
 
-	configFile := c.Path + keys[0] + c.Ext
+	c.file = c.Path + keys[0] + c.Ext
 
-	if _, err := os.Stat(configFile); os.IsNotExist(err) {
-		return nil, errors.New("config path not found:" + configFile)
+	if _, err := os.Stat(c.file); os.IsNotExist(err) {
+		return nil, errors.New("config path not found:" + c.file)
 	}
 
 	var result gjson.Result
-	if c.cache[configFile].IsObject() {
-		result = c.cache[configFile]
+	if c.cache[c.file].IsObject() {
+		result = c.cache[c.file]
 	} else {
-		b, err := ioutil.ReadFile(configFile)
+		b, err := ioutil.ReadFile(c.file)
 		if err != nil {
 			return nil, errors.Wrap(err, "config file read err")
 		}
 		result = gjson.ParseBytes(b)
-		c.cache[configFile] = result
+		c.cache[c.file] = result
 	}
 
 	ret := result.Get(strings.Join(keys[1:], "."))
