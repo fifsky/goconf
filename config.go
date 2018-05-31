@@ -33,15 +33,15 @@ func (c *Config) Get(key string) (*gjson.Result, error) {
 	}
 
 	var b []byte
+	var err error
 
 	if len(c.cache[configFile]) > 0 {
 		b = c.cache[configFile]
 	} else {
-		b, err := ioutil.ReadFile(configFile)
+		b, err = ioutil.ReadFile(configFile)
 		if err != nil {
 			return nil, errors.Wrap(err, "config file read err")
 		}
-
 		c.cache[configFile] = b
 	}
 
@@ -66,8 +66,9 @@ func NewConfig(path string) (*Config, error) {
 	}
 	configPath, _ := filepath.Abs(path)
 	config := &Config{
-		Path: configPath + "/",
-		Ext:  ".json",
+		Path:  configPath + "/",
+		Ext:   ".json",
+		cache: make(map[string][]byte, 0),
 	}
 	return config, nil
 }
