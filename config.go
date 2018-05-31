@@ -12,8 +12,9 @@ import (
 
 //config file path and ext,Ext default .json
 type Config struct {
-	Path string
-	Ext  string
+	Path  string
+	Ext   string
+	cache map[string][]byte
 }
 
 //if key does not exist, return error
@@ -31,9 +32,17 @@ func (c *Config) Get(key string) (*gjson.Result, error) {
 		return nil, errors.New("config path not found:" + configFile)
 	}
 
-	b, err := ioutil.ReadFile(configFile)
-	if err != nil {
-		return nil, errors.Wrap(err, "config file read err")
+	var b []byte
+
+	if len(c.cache[configFile]) > 0 {
+		b = c.cache[configFile]
+	} else {
+		b, err := ioutil.ReadFile(configFile)
+		if err != nil {
+			return nil, errors.Wrap(err, "config file read err")
+		}
+
+		c.cache[configFile] = b
 	}
 
 	result := gjson.ParseBytes(b)
