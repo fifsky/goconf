@@ -94,6 +94,28 @@ conf.MustGet("dev.notfound").String() //value is empty string
 conf.MustGet("dev2.not").Int() //value is 0 int
 ```
 
+## Unmarshal to Struct
+```go
+type Database struct {
+	Driver string `json:"driver"`
+	Host   string `json:"host"`
+	Port   int    `json:"port"`
+}
+
+type ConfigDemo struct {
+	Database Database `json:"database"`
+}
+
+conf, _ := goconf.NewConfig("./testdata/")
+app := &ConfigDemo{}
+err = conf.Unmarshal("json5", app)
+if err != nil {
+    fmt.Println(err)
+}
+fmt.Println(app)
+//&{{mysql localhost 3306}}
+```
+
 
 ## Contact
 Xudong Cai [@fifsky](https://fifsky.com/)
