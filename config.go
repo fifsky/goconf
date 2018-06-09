@@ -23,7 +23,7 @@ type Config struct {
 func (c *Config) Get(key string) (*gjson.Result, error) {
 	keys := strings.Split(key, ".")
 
-	if len(keys) < 2 {
+	if len(keys) < 1 {
 		return nil, errors.New("config XPath is at least two paragraphs")
 	}
 
@@ -45,8 +45,12 @@ func (c *Config) Get(key string) (*gjson.Result, error) {
 		c.cache[file] = result
 	}
 
-	ret := result.Get(strings.Join(keys[1:], "."))
-	return &ret, nil
+	if len(keys) == 1 {
+		return &result, nil
+	} else {
+		ret := result.Get(strings.Join(keys[1:], "."))
+		return &ret, nil
+	}
 }
 
 //Ignore the error and return a zero value when it does not exist
@@ -59,17 +63,14 @@ func (c *Config) MustGet(key string) *gjson.Result {
 	return ret
 }
 
-//Unmarshal is json5 unmarshal to struct
-func (c *Config) Unmarshal(fileName string, v interface{}) error {
-	file := filepath.Join(c.Path, fileName+".json")
-	if _, err := os.Stat(file); os.IsNotExist(err) {
-		return errors.New("config file not found:" + file)
-	}
+//Unmarshal is json5 unmarshal to struct and support xpath
+func (c *Config) Unmarshal(keys string, v interface{}) error {
+	result, err := c.Get(keys)
 
-	buf, err := ioutil.ReadFile(file)
 	if err != nil {
-		return errors.Wrap(err, "config file read err")
+		return err
 	}
+	buf := []byte(result.String())
 
 	return json5.Unmarshal(buf, v)
 }

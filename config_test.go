@@ -135,20 +135,34 @@ func TestConfig_Unmarshal(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	{
+		app := &ConfigDemo{}
+		err = conf.Unmarshal("json5", app)
 
-	app := &ConfigDemo{}
-	err = conf.Unmarshal("json5", app)
+		if err != nil {
+			t.Fatal(err)
+		}
 
-	if err != nil {
-		t.Fatal(err)
+		if app.Database.Host != "localhost" {
+			t.Fatalf("Unmarshal struct host must return %s", "localhost")
+		}
+
+		if app.Database.Port != 3306 {
+			t.Fatalf("Unmarshal struct port must return %d", 3306)
+		}
+		//fmt.Println(app)
 	}
 
-	if app.Database.Host != "localhost" {
-		t.Fatalf("Unmarshal struct host must return %s", "localhost")
-	}
+	{
+		db := &Database{}
+		err = conf.Unmarshal("json5.database", db)
 
-	if app.Database.Port != 3306 {
-		t.Fatalf("Unmarshal struct port must return %d", 3306)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		if db.Host != "localhost" {
+			t.Fatalf("Unmarshal Xpath struct host must return %s", "localhost")
+		}
 	}
-	//fmt.Println(app)
 }

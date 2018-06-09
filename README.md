@@ -116,6 +116,13 @@ fmt.Println(app)
 //&{{mysql localhost 3306}}
 ```
 
+`Unmarshal` also supports Xpath
+
+```go
+database := &Database{}
+conf.Unmarshl("json5.database",database)
+```
+
 
 ## Contact
 Xudong Cai [@fifsky](https://fifsky.com/)
