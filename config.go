@@ -70,8 +70,12 @@ func (c *Config) Unmarshal(keys string, v interface{}) error {
 	if err != nil {
 		return err
 	}
-	buf := []byte(result.String())
 
+	if !result.IsObject() {
+		return errors.New("unmarshal data is not json '" + result.String() + "'")
+	}
+
+	buf := []byte(result.String())
 	return json5.Unmarshal(buf, v)
 }
 

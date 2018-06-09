@@ -5,16 +5,6 @@ import (
 	"path/filepath"
 )
 
-type Database struct {
-	Driver string `json:"driver"`
-	Host   string `json:"host"`
-	Port   int    `json:"port"`
-}
-
-type ConfigDemo struct {
-	Database Database `json:"database"`
-}
-
 func TestNewConfig(t *testing.T) {
 	_, err := NewConfig("./testdata/")
 	if err != nil {
@@ -131,12 +121,23 @@ func TestConfig_Cache(t *testing.T) {
 }
 
 func TestConfig_Unmarshal(t *testing.T) {
+	type database struct {
+		Driver string `json:"driver"`
+		Host   string `json:"host"`
+		Port   int    `json:"port"`
+	}
+
+	type configDemo struct {
+		Database database `json:"database"`
+	}
+
 	conf, err := NewConfig("./testdata/")
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	{
-		app := &ConfigDemo{}
+		app := &configDemo{}
 		err = conf.Unmarshal("json5", app)
 
 		if err != nil {
@@ -154,7 +155,7 @@ func TestConfig_Unmarshal(t *testing.T) {
 	}
 
 	{
-		db := &Database{}
+		db := &database{}
 		err = conf.Unmarshal("json5.database", db)
 
 		if err != nil {
