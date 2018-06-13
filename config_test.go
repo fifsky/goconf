@@ -169,3 +169,25 @@ func TestConfig_Unmarshal(t *testing.T) {
 		}
 	}
 }
+
+func TestConfig_UnmarshalSlice(t *testing.T) {
+	type config struct {
+		Children []string
+	}
+
+	app := config{}
+
+	conf, err := NewConfig("./testdata/")
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = conf.Unmarshal("dev.children", &app.Children)
+
+	if err != nil {
+		t.Fatalf("UnmarshalSlice error:%s", err)
+	}
+
+	if len(app.Children) == 0 {
+		t.Fatalf("UnmarshalSlice error")
+	}
+}

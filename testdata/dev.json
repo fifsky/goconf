@@ -5,8 +5,8 @@
   },
   "age": 37,
   "children": [
-    "Sara",
-    "Alex",
+    "Sara", //comment1
+    "Alex", //comment2
     "Jack"
   ],
   "fav.movie": "Deer Hunter",
