@@ -9,13 +9,14 @@ import (
 	"github.com/pkg/errors"
 	"github.com/tidwall/gjson"
 	"github.com/ilibs/json5"
+	"sync"
 )
 
 //config file path and ext,Ext default .json
 type Config struct {
 	Path  string
 	Ext   string
-	cache map[string]gjson.Result
+	cache sync.Map
 }
 
 //if key does not exist, return error
@@ -34,15 +35,15 @@ func (c *Config) Get(key string) (*gjson.Result, error) {
 	}
 
 	var result gjson.Result
-	if c.cache[file].IsObject() {
-		result = c.cache[file]
+	if cache, ok := c.cache.Load(file); ok && cache.(gjson.Result).IsObject() {
+		result = cache.(gjson.Result)
 	} else {
 		b, err := ioutil.ReadFile(file)
 		if err != nil {
 			return nil, errors.Wrap(err, "config file read err")
 		}
 		result = gjson.ParseBytes(b)
-		c.cache[file] = result
+		c.cache.Store(file, result)
 	}
 
 	if len(keys) == 1 {
@@ -87,7 +88,7 @@ func NewConfig(path string) (*Config, error) {
 	config := &Config{
 		Path:  configPath + "/",
 		Ext:   ".json",
-		cache: make(map[string]gjson.Result, 0),
+		cache: sync.Map{},
 	}
 	return config, nil
 }

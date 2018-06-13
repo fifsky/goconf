@@ -3,6 +3,7 @@ package goconf
 import (
 	"testing"
 	"path/filepath"
+	"github.com/tidwall/gjson"
 )
 
 func TestNewConfig(t *testing.T) {
@@ -109,11 +110,12 @@ func TestConfig_Cache(t *testing.T) {
 
 	file := filepath.Join(conf.Path, "dev"+conf.Ext)
 
-	if !conf.cache[file].IsObject() {
+	cache, ok := conf.cache.Load(file)
+	if !ok || !cache.(gjson.Result).IsObject() {
 		t.Fatalf("config cache miss")
 	}
 
-	cacheName := conf.cache[file].Get("name.first").String()
+	cacheName := cache.(gjson.Result).Get("name.first").String()
 
 	if name != "" && name != cacheName {
 		t.Fatalf("cache value not match [%s:%s]", name, cacheName)
