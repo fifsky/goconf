@@ -10,12 +10,14 @@ import (
 	"github.com/tidwall/gjson"
 	"github.com/ilibs/json5"
 	"sync"
+	"reflect"
 )
 
 //config file path and ext,Ext default .json
 type Config struct {
 	Path  string
 	Ext   string
+	Tag   string
 	cache sync.Map
 }
 
@@ -76,6 +78,29 @@ func (c *Config) Unmarshal(keys string, v interface{}) error {
 	return json5.Unmarshal(buf, v)
 }
 
+func (c *Config) Load(v interface{}) error {
+	rv := reflect.ValueOf(v)
+	if rv.Kind() != reflect.Ptr || rv.IsNil() {
+		return errors.New("config:Load(non-pointer)")
+	}
+	val := rv.Elem()
+	t := reflect.TypeOf(v).Elem()
+
+	for i := 0; i < t.NumField(); i++ {
+		f := t.Field(i).Tag.Get(c.Tag)
+		if f == "-" || f == "" {
+			continue
+		}
+
+		err := c.Unmarshal(f, val.Field(i).Addr().Interface())
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 func NewConfig(path string) (*Config, error) {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		return nil, errors.New("config path not found:" + path)
@@ -84,6 +109,7 @@ func NewConfig(path string) (*Config, error) {
 	config := &Config{
 		Path:  configPath + "/",
 		Ext:   ".json",
+		Tag:   "conf",
 		cache: sync.Map{},
 	}
 	return config, nil

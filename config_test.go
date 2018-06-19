@@ -191,3 +191,41 @@ func TestConfig_UnmarshalSlice(t *testing.T) {
 		t.Fatalf("UnmarshalSlice error")
 	}
 }
+
+func TestConfig_Load(t *testing.T) {
+	type log struct {
+		LogName string `json:"log_name"`
+		LogPath string `json:"log_path"`
+	}
+
+	type db struct {
+		Name string `json:"name"`
+		Host string `json:"host"`
+		Port string `json:"port"`
+	}
+
+	type config struct {
+		Log log `conf:"a"`
+		DB  db  `conf:"b"`
+	}
+
+	conf, err := NewConfig("./testdata/")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	app := &config{}
+	err = conf.Load(app)
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	if app.Log.LogName != "log" {
+		t.Fatalf("config load log.name must get 'log' but get '%s'", app.Log.LogName)
+	}
+
+	if app.DB.Host != "localhost" {
+		t.Fatalf("config load db.host must get 'localhost' but get '%s'", app.DB.Host)
+	}
+}

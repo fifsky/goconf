@@ -29,6 +29,39 @@ $ go get -u github.com/fifsky/goconf
 This will retrieve the library.
 
 
+## Load multiple configs
+
+You only need to declare the Tag `conf:"filename"` on the struct
+
+```
+type log struct {
+    LogName string `json:"log_name"`
+    LogPath string `json:"log_path"`
+}
+
+type db struct {
+    Name string `json:"name"`
+    Host string `json:"host"`
+    Port string `json:"port"`
+}
+
+type config struct {
+    Log log `conf:"log"`
+    DB  db  `conf:"db"`
+}
+
+conf, err := NewConfig("./testdata/")
+if err != nil {
+    t.Fatal(err)
+}
+
+app := &config{}
+err = conf.Load(app)
+
+fmt.Printf("%#v",app)
+```
+
+
 ## Get config a value
 
 Config file: testdata/dev.json
