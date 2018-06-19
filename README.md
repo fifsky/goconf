@@ -52,7 +52,7 @@ type config struct {
 
 conf, err := NewConfig("./testdata/")
 if err != nil {
-    t.Fatal(err)
+    fmt.Fatal(err)
 }
 
 app := &config{}

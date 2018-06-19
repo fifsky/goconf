@@ -205,8 +205,8 @@ func TestConfig_Load(t *testing.T) {
 	}
 
 	type config struct {
-		Log log `conf:"a"`
-		DB  db  `conf:"b"`
+		Log log `conf:"log"`
+		DB  db  `conf:"db"`
 	}
 
 	conf, err := NewConfig("./testdata/")
