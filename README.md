@@ -7,7 +7,7 @@
 <a href="https://codecov.io/gh/fifsky/goconf"><img src="https://codecov.io/gh/fifsky/goconf/branch/master/graph/badge.svg" alt="codecov"></a>
 <a href="https://goreportcard.com/report/github.com/fifsky/goconf"><img src="https://goreportcard.com/badge/github.com/fifsky/goconf" alt="Go Report Card
 "></a>
-<a href="https://godoc.org/github.com/fifsky/goconf"><img src="https://godoc.org/github.com/gin-gonic/gin?status.svg" alt="GoDoc"></a>
+<a href="https://godoc.org/github.com/fifsky/goconf"><img src="https://godoc.org/github.com/fifsky/goconf?status.svg" alt="GoDoc"></a>
 <a href="https://opensource.org/licenses/mit-license.php" rel="nofollow"><img src="https://badges.frapsoft.com/os/mit/mit.svg?v=103"></a>
 </p>
 
