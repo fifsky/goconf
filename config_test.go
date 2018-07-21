@@ -3,6 +3,7 @@ package goconf
 import (
 	"testing"
 	"path/filepath"
+
 	"github.com/tidwall/gjson"
 )
 

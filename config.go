@@ -1,16 +1,16 @@
 package goconf
 
 import (
-	"io/ioutil"
 	"os"
-	"path/filepath"
 	"strings"
+	"sync"
+	"reflect"
+	"io/ioutil"
+	"path/filepath"
 
 	"github.com/pkg/errors"
 	"github.com/tidwall/gjson"
 	"github.com/ilibs/json5"
-	"sync"
-	"reflect"
 )
 
 //config file path and ext,Ext default .json
