@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 
 	"github.com/tidwall/gjson"
+	"fmt"
 )
 
 func TestNewConfig(t *testing.T) {
@@ -191,6 +192,32 @@ func TestConfig_UnmarshalSlice(t *testing.T) {
 	if len(app.Children) == 0 {
 		t.Fatalf("UnmarshalSlice error")
 	}
+}
+
+func TestLoad_Slice(t *testing.T) {
+	type Friend struct {
+		First string `json:"first"`
+		Last  string `json:"last"`
+		Age   int    `json:"age"`
+	}
+
+	type config struct {
+		Friends []Friend `conf:"slice"`
+	}
+
+	conf, err := NewConfig("./testdata/")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	app := &config{}
+	err = conf.Load(app)
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	fmt.Println(app)
 }
 
 func TestConfig_Load(t *testing.T) {
